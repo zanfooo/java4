@@ -1,0 +1,46 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        int lung;
+        int numero = 0;
+        int presente = 0;
+        int[] vet2 = new int[0];
+        System.out.println("Inserisci la lunghezza del vettore: ");
+        Scanner scanner = new Scanner(System.in);
+        lung = scanner.nextInt();
+        int[] vet = new int[lung];
+        for (int i = 0; i < lung; i++) {
+            int j = i+1;
+            System.out.println("Inserisci il " + j + "° numero: ");
+            vet[i] = scanner.nextInt();
+        }
+        System.out.println("Inserisci il numero che vuoi cercare: ");
+        numero = scanner.nextInt();
+
+        findAll(vet, vet2, numero, presente);
+    }
+
+    public static void findAll(int[] vet, int[] vet2, int numero, int presente) {
+        for (int i = 0; i < vet.length; i++) {
+            if(vet[i] == numero){
+                presente++;
+            }
+        }
+        vet2 = new int[presente];
+
+        int j = 0;
+        for (int i = 0; i < vet.length; i++) {
+            if(vet[i] == numero){
+
+                vet2[j] = i+1;
+                j++;
+            }
+        }
+        System.out.println("Il numero " + numero + " è presente nelle posizioni: \n");
+
+        for (int i = 0; i < vet2.length; i++) {
+            System.out.println(" " + vet2[i]);
+            }
+    }
+}
