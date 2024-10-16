@@ -1,0 +1,54 @@
+public class TestInteger {
+    public static void main(String[] args) {
+        LinkedList<Integer> numeri = new LinkedList<>();
+
+        numeri.add(10);
+        numeri.add(20);
+        numeri.add(30);
+        
+        numeri.remove(Integer.valueOf(30));
+
+        numeri.forEach(System.out::println);
+
+        numeri.addFirst(5);
+
+        numeri.addLast(40);
+
+        numeri.clear();
+
+        numeri.add(10);
+        System.out.println(numeri.contains(10)); // true
+
+        System.out.println(numeri.getFirst());
+
+        System.out.println(numeri.getLast());
+
+        System.out.println(numeri.indexOf(10)); // 0
+
+        System.out.println(numeri.isEmpty()); // false
+
+        numeri.add(10);
+        System.out.println(numeri.lastIndexOf(10)); // 1
+
+        numeri.removeFirst();
+
+        numeri.removeLast();
+
+        numeri.add(100);
+        numeri.set(0, 200);
+
+        LinkedList<Integer> altriNumeri = new LinkedList<>();
+        altriNumeri.add(200);
+        System.out.println(numeri.equals(altriNumeri)); // true
+
+        System.out.println(numeri.size()); // 1
+
+        LinkedList<Integer> numeriInvertiti = new LinkedList<>(numeri);
+        for (int i = 0; i < numeriInvertiti.size() / 2; i++) {
+            Integer temp = numeriInvertiti.get(i);
+            numeriInvertiti.set(i, numeriInvertiti.get(numeriInvertiti.size() - 1 - i));
+            numeriInvertiti.set(numeriInvertiti.size() - 1 - i, temp);
+        }
+        System.out.println(numeriInvertiti);
+    }
+}
