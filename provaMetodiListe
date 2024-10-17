@@ -1,0 +1,62 @@
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
+
+public class Main {
+    public static void main(String[] args) {
+        ArrayList<Integer> lista = new ArrayList<>();
+
+        lista.add(10);
+        lista.add(20);
+        lista.add(30);
+
+        lista.remove(Integer.valueOf(30)); //rimuove il numero
+
+        lista.forEach(System.out::println);
+
+        lista.addFirst(5);
+
+        lista.addLast(40);
+
+        lista.clear();  //pulisce la lista da tutti gli elementi
+        System.out.println(lista);
+
+        lista.add(10);
+        System.out.println(lista.contains(10)); // true, controlla se è presente il numero e ritorna true o false
+
+        System.out.println(lista.getFirst()); //stampa il primo elemento della lista
+
+        System.out.println(lista.getLast()); //stampa l ultimo elemento della lista
+
+        System.out.println(lista.indexOf(10)); // scrive tutte le posizioni in cui è presente un numero
+
+        System.out.println(lista.isEmpty()); // false, controlla se la lista è vuota
+
+        lista.add(10);
+        System.out.println(lista.lastIndexOf(10)); // 1, controlla dove è l ultimo 10(numero passato)
+
+    //    lista.removeFirst(); //rimuove il primo elemento della lista
+    //    System.out.println(lista);
+
+        lista.removeLast(); //rimuove l ultimo elemento della lista
+        System.out.println(lista);
+
+        lista.add(100);
+        lista.set(0, 200); // sostituisce il numero scelto all indice dato
+        System.out.println(lista);
+
+        LinkedList<Integer> altriNumeri = new LinkedList<>();
+        altriNumeri.add(200);
+        System.out.println(lista.equals(altriNumeri)); // true
+
+        System.out.println(lista.size()); // scrive la lunghezza della lista
+
+
+
+        System.out.println(lista.reversed());  //non cambia la lista ma stampa la lista rovesciata
+
+        Collections.reverse(lista); //cambia la lista e la stampa
+        System.out.println(lista);
+    }
+}
