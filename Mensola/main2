@@ -15,7 +15,7 @@ public class Main {
         boolean uscita = false;
         int cont = 0;
         do {
-            String[] opzioni = {"---MENSOLA---", "1. Inserimento", "2. Visualizza", "3. Elimina", "4. Ricerca", "5. Modifica data di pubblicazione", "6. Fine"};
+            String[] opzioni = {"---MENSOLA---", "1. Inserimento", "2. Visualizza", "3. Elimina", "4. Ricerca", "5. Modifica data di pubblicazione", "6. Ricerca per Titolo", "7. Ricerca per titolo ritornando gli autori", "8. Fine"};
             int scelta = Menu(opzioni, tastiera);
             switch (scelta) {
 
@@ -91,6 +91,37 @@ public class Main {
                 }
 
                 case 6 -> {
+                    System.out.println("Ricerca per titolo");
+                    System.out.print("Inserisci il titolo: ");
+                    String titolo = tastiera.nextLine();
+                    int trovat = 0;
+                    try {
+                        trovat = indexOf(mensola, cont, titolo);
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                    if (trovat > 0)
+                        System.out.println("Libro presente e trovato" + trovat + " volte");
+                    else
+                        System.out.println("Libro non trovato.");
+
+                }
+
+                case 7 -> {
+                    System.out.println("Ricerca per titolo ritornando gli autori");
+                    System.out.print("Inserisci il titolo: ");
+                    String titolo = tastiera.nextLine();
+
+                    try {
+
+                        findAll(mensola, cont, titolo);
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+
+
+                }
+                case 8 -> {
                     System.out.println("Fine");
                     uscita = true;
                 }
@@ -131,18 +162,54 @@ public class Main {
         for (int i = 0; i < cont; i++) {
             if (mensola[i].Titolo.equalsIgnoreCase(titolo) && mensola[i].Autore.equalsIgnoreCase(autore))
                 return mensola[i];  // Libro trovato
-            
+
         }
-        return null;  
+        return null;
     }
 
     public static boolean modificaData(Libro libro, String nuovaData) {
         if (libro != null) {
-            libro.dataDiPubblicazione = LocalDate.parse(nuovaData); 
+            libro.dataDiPubblicazione = LocalDate.parse(nuovaData);
             return true;
         }
         return false;
     }
 
+    public static int indexOf(Libro[] mensola, int cont, String titolo) throws Exception {
+        int contatore = 0;
+        for (int i = 0; i < cont; i++) {
+            if (mensola[i].Titolo.equalsIgnoreCase(titolo)) {
+                contatore++;
+            } else {
+                throw new Exception("Libro non trovato");
+            }
+        }
+        return contatore;
+    }
 
+    public static String[] findAll(Libro[] mensola, int cont, String titolo) throws Exception {
+        int contatore = 0;
+
+        for (int i = 0; i < cont; i++) {
+            if (mensola[i].Titolo.equalsIgnoreCase(titolo)) {
+                contatore++;
+            } else {
+                throw new Exception("Libro non trovato");
+            }
+        }
+        if (contatore > 0) {
+            String[] arrayautori = new String[contatore];
+            int j = 0;
+            for (int i = 0; i < cont; i++) {
+                if (mensola[i].Titolo.equalsIgnoreCase(titolo)) {
+                    arrayautori[j] = mensola[i].Autore;
+                    j++;
+                } else {
+                    throw new Exception("Libro non trovato");
+                }
+            }
+            return arrayautori;
+        }
+        return null;
+    }
 }
