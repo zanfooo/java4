@@ -13,11 +13,11 @@ public class Main {
         final int MAXLIBRI = 3;
         int libriDaInserire = 0;
         ArrayList<Libro> mensola = new ArrayList<>();
-
+        String libroDaCancellare;
         boolean uscita = false;
         int cont = 0;
         do {
-            String[] opzioni = {"---MENSOLA---", "1. Inserimento", "2. Visualizza", "3. Fine"};
+            String[] opzioni = {"---MENSOLA---", "1. Inserimento", "2. Visualizza","Cancella Elemento", "3. Fine"};
             int scelta = Menu(opzioni, tastiera);
             switch (scelta) {
 
@@ -32,6 +32,13 @@ public class Main {
 
                 }
                 case 3 -> {
+                    do {
+                        libroDaCancellare = "0";
+                        System.out.println("Digita il titolo del libro che vuoi cancellare: ");
+                        libroDaCancellare = tastiera.nextLine();
+                    }while(mensola.contains(libroDaCancellare));
+                }
+                case 4 -> {
                     System.out.println("Fine");
                     uscita = true;
                 }
