@@ -37,6 +37,7 @@ public class Main {
                         System.out.println("Digita il titolo del libro che vuoi cancellare: ");
                         libroDaCancellare = tastiera.nextLine();
                     }while(mensola.contains(libroDaCancellare));
+                    mensola.remove(libroDaCancellare);
                 }
                 case 4 -> {
                     System.out.println("Fine");
