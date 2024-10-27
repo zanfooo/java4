@@ -17,7 +17,7 @@ public class Main {
         boolean uscita = false;
         int cont = 0;
         do {
-            String[] opzioni = {"---MENSOLA---", "1. Inserimento", "2. Visualizza","Cancella Elemento", "3. Fine"};
+            String[] opzioni = {"---MENSOLA---", "1. Inserimento", "2. Visualizza","3. Cancella Elemento", "4. Fine"};
             int scelta = Menu(opzioni, tastiera);
             switch (scelta) {
 
@@ -28,16 +28,18 @@ public class Main {
                     Inserimento(tastiera, libriDaInserire, mensola);
                 }
                 case 2 -> {
-                    mensola.forEach(libro -> System.out.println(libro.FormattaDati()));
+                    mensola.forEach(l-> System.out.println(l.FormattaDati())); //Espressione Lambda
 
                 }
                 case 3 -> {
-                    do {
-                        libroDaCancellare = "0";
-                        System.out.println("Digita il titolo del libro che vuoi cancellare: ");
+                    System.out.println("Digita il titolo del libro che vuoi rimuovere: ");
+                    try{
                         libroDaCancellare = tastiera.nextLine();
-                    }while(mensola.contains(libroDaCancellare));
-                    mensola.remove(libroDaCancellare);
+                        CancellaLibro(libroDaCancellare,mensola);
+                    }catch (Exception e){
+                        System.out.println(e.getMessage());
+                    }
+
                 }
                 case 4 -> {
                     System.out.println("Fine");
@@ -51,6 +53,16 @@ public class Main {
         for (int i = 0; i < libriDaInserire; i++) {
             // Aggiunta di elementi alla lista
             mensola.add(LeggiLibro(tastiera));
+        }
+    }
+
+    public static void CancellaLibro(String libroDaCancellare, List<Libro> mensola) {
+        boolean libroTrovato = mensola.removeIf(l -> l.Titolo.equalsIgnoreCase(libroDaCancellare));
+
+        if (!libroTrovato) {
+            System.out.println("Il libro \"" + libroDaCancellare + "\" non è stato trovato nella mensola.");
+        } else {
+            System.out.println("Il libro \"" + libroDaCancellare + "\" è stato cancellato.");
         }
     }
 }
