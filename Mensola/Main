@@ -1,6 +1,7 @@
 import mensola.Libro;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import static utility.Tools.*;
@@ -10,208 +11,107 @@ public class Main {
     public static void main(String[] args) {
         Scanner tastiera = new Scanner(System.in);
         final int MAXLIBRI = 3;
-        Libro[] mensola = new Libro[MAXLIBRI];
-
+        int libriDaInserire = 0;
+        ArrayList<Libro> mensola = new ArrayList<>();
+        String titoloLibroDaCancellare;
+        String autoreLibroDaCancellare;
+        String titoloLibroDaModificare;
+        String autoreLibroDaModificare;
+        int nuovePagine = 0;
         boolean uscita = false;
         int cont = 0;
         do {
-            String[] opzioni = {"---MENSOLA---", "1. Inserimento", "2. Visualizza", "3. Elimina", "4. Ricerca", "5. Modifica data di pubblicazione", "6. Ricerca per Titolo", "7. Ricerca per titolo ritornando gli autori", "8. Fine"};
+            String[] opzioni = {"---MENSOLA---", "1. Inserimento", "2. Visualizza", "3. Cancella Elemento", "4. Modifica Numero di Pagine", "5. Fine"};
             int scelta = Menu(opzioni, tastiera);
             switch (scelta) {
 
                 case 1 -> {
-                    System.out.println("Inserimento");
-                    if (cont < MAXLIBRI) {
-                        Libro nuovoLibro = LeggiLibro(tastiera);
-                        boolean presente = libroDoppio(mensola, cont, nuovoLibro);
-                        if (!presente) {
-                            mensola[cont] = nuovoLibro;
-                            cont++;
-                        } else
-                            System.out.println("Il libro è già presente.");
-
-                    } else
-                        System.out.println("Non è possibile inserire altri libri");
-
+                    libriDaInserire = 0;
+                    System.out.println("Quanti libri vuoi inserire?");
+                    libriDaInserire = tastiera.nextInt();
+                    Inserimento(tastiera, libriDaInserire, mensola);
                 }
                 case 2 -> {
-                    System.out.println("Visualizzazione");
-                    System.out.println("Quale tra i " + cont + " vuoi visualizzare?");
-                    int sceltaLibro = Integer.parseInt(tastiera.nextLine());
-                    if (sceltaLibro <= cont && sceltaLibro > 0)
-                        System.out.println(mensola[sceltaLibro - 1].FormattaDati());
-                    else
-                        System.out.println("Scelta non valida");
+                    mensola.forEach(l -> System.out.println(l.FormattaDati())); //Espressione Lambda
 
                 }
-
                 case 3 -> {
-                    System.out.println("Elimina");
-                    System.out.println("Quale libro vuoi cancellare? (1-" + cont + ")");
-                    int sceltaLibro = Integer.parseInt(tastiera.nextLine());
-                    cancellaLibro(mensola, cont, sceltaLibro);
-                    if (cancellaLibro(mensola, cont, sceltaLibro) > 0) {
-                        System.out.println("Libro cancellato con successo.");
-                        cont--;
-                    }else
-                        System.out.println("Scelta non valida.");
+                    System.out.println("Digita il titolo del libro che vuoi rimuovere: ");
+                    titoloLibroDaCancellare = tastiera.nextLine() ;
+                    System.out.println("Digita l' autore del libro che vuoi rimuovere: ");
+                    autoreLibroDaCancellare = tastiera.nextLine() ;
+                    try {
+                        CancellaLibro(titoloLibroDaCancellare, autoreLibroDaCancellare, mensola);
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
 
                 }
-
                 case 4 -> {
-                    System.out.println("Ricerca per titolo e autore");
-                    System.out.print("Inserisci il titolo: ");
-                    String titolo = tastiera.nextLine();
-                    System.out.print("Inserisci l'autore: ");
-                    String autore = tastiera.nextLine();
-                    Libro trovato = ricerca(mensola, cont, titolo, autore);
-                    if (trovato != null)
-                        System.out.println("Libro trovato: " + trovato.FormattaDati());
-                    else
-                        System.out.println("Libro non trovato.");
+                    System.out.println("Digita il titolo del libro di cui vuoi modificare il numero di pagine: ");
+                    titoloLibroDaModificare = tastiera.nextLine() ;
+                    System.out.println("Digita l' autore del libro di cui vuoi modificare il numero di pagine: ");
+                    autoreLibroDaModificare = tastiera.nextLine() ;
+                    System.out.println("Digita il nuovo numero di pagine: ");
+                    nuovePagine = tastiera.nextInt() ;
+                    try {
+                        ModificaLibro(autoreLibroDaModificare, titoloLibroDaModificare, nuovePagine, mensola);
+                        System.out.println();
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
 
                 }
-
                 case 5 -> {
-                    System.out.println("Modifica data di pubblicazione");
-                    System.out.println("Inserisci il titolo: ");
-                    String titolo = tastiera.nextLine();
-                    System.out.println("Inserisci l'autore: ");
-                    String autore = tastiera.nextLine();
-                    Libro libroMod = ricerca(mensola, cont, titolo, autore);
-                    if (libroMod != null) {
-                        System.out.println("Inserisci la nuova data: ");
-                        String nuovaData = tastiera.nextLine();
-                        if (modificaData(libroMod, nuovaData))
-                            System.out.println("Data di pubblicazione modificata");
-                        else
-                            System.out.println("Errore nella modifica!");
-
-                    } else
-                        System.out.println("Libro non trovato");
-                }
-
-                case 6 -> {
-                    System.out.println("Ricerca per titolo");
-                    System.out.print("Inserisci il titolo: ");
-                    String titolo = tastiera.nextLine();
-                    int trovat = 0;
-                    try {
-                        trovat = indexOf(mensola, cont, titolo);
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                    }
-                    if (trovat > 0)
-                        System.out.println("Libro presente e trovato" + trovat + " volte");
-                    else
-                        System.out.println("Libro non trovato.");
-
-                }
-
-                case 7 -> {
-                    System.out.println("Ricerca per titolo ritornando gli autori");
-                    System.out.print("Inserisci il titolo: ");
-                    String titolo = tastiera.nextLine();
-
-                    try {
-                        String[] arrayautori = findAll(mensola, cont, titolo);
-                        System.out.println("Autori trovati:");
-                        for (String autore : arrayautori) {
-                            System.out.println(autore);
-                        }
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                    }
-                }
-                
-                case 8 -> {
                     System.out.println("Fine");
                     uscita = true;
                 }
+                default -> System.out.println("Scelta non valida");
             }
         } while (!uscita);
     }
 
-    public static boolean libroDoppio(Libro[] mensola, int cont, Libro nuovoLibro) {
+    public static void Inserimento(Scanner tastiera, int libriDaInserire, List<Libro> mensola) {
 
-        for (int i = 0; i < cont; i++) {
-            if (mensola[i].Autore.equalsIgnoreCase(nuovoLibro.Autore) &&
-                    mensola[i].Titolo.equalsIgnoreCase(nuovoLibro.Titolo)) {
-                return true;
-            }
+        for (int i = 0; i < libriDaInserire; i++) {
+            // Aggiunta di elementi alla lista
+            mensola.add(LeggiLibro(tastiera));
         }
-        return false;
     }
 
-    public static int cancellaLibro(Libro[] mensola, int cont, int sceltaLibro) {
+    public static void CancellaLibro(String autoreLibroDaCancellare,String titoloLibroDaCancellare, List<Libro> mensola) {
+        boolean libroTrovato = mensola.removeIf(l -> l.Titolo.equalsIgnoreCase(titoloLibroDaCancellare) && l.Autore.equalsIgnoreCase(autoreLibroDaCancellare));
 
-        if (sceltaLibro > 0 && sceltaLibro <= cont) {
-            for (int i = sceltaLibro - 1; i < cont - 1; i++) {
-                mensola[i] = mensola[i + 1];
-            }
-            mensola[cont - 1] = null;
-            return 1;
-
-
+        if (!libroTrovato) {
+            System.out.println("Il libro \"" + titoloLibroDaCancellare + "\" non è stato trovato nella mensola.");
         } else {
-
-            return 0;
+            System.out.println("Il libro \"" + titoloLibroDaCancellare + "\" è stato cancellato.");
         }
     }
 
-
-    public static Libro ricerca(Libro[] mensola, int cont, String titolo, String autore) {
-        for (int i = 0; i < cont; i++) {
-            if (mensola[i].Titolo.equalsIgnoreCase(titolo) && mensola[i].Autore.equalsIgnoreCase(autore))
-                return mensola[i];  // Libro trovato
-
-        }
-        return null;
-    }
-
-    public static boolean modificaData(Libro libro, String nuovaData) {
-        if (libro != null) {
-            libro.dataDiPubblicazione = LocalDate.parse(nuovaData);
-            return true;
-        }
-        return false;
-    }
-
-    public static int indexOf(Libro[] mensola, int cont, String titolo) throws Exception {
-        int contatore = 0;
-        for (int i = 0; i < cont; i++) {
-            if (mensola[i].Titolo.equalsIgnoreCase(titolo)) {
-                contatore++;
-            } else {
-                throw new Exception("Libro non trovato");
+    public static void ModificaLibro(String autoreLibroDaModificare, String titoloLibroDaModificare,  int nuovePagine, List<Libro> mensola) throws Exception{
+        for(int i = 0; i < mensola.size(); i++) {
+            if (mensola.contains(l.Titolo.equalsIgnoreCase(titoloLibroDaModificare) && l.Autore.equalsIgnoreCase(autoreLibroDaModificare))){
+                
             }
         }
-        return contatore;
-    }
 
-    public static String[] findAll(Libro[] mensola, int cont, String titolo) throws Exception {
-        int contatore = 0;
-
-        for (int i = 0; i < cont; i++) {
-            if (mensola[i].Titolo.equalsIgnoreCase(titolo)) {
-                contatore++;
-            } else {
-                throw new Exception("Libro non trovato");
-            }
-        }
-        String[] arrayautori = new String[contatore];
-        if (contatore > 0) {
-            int j = 0;
-            for (int i = 0; i < cont; i++) {
-                if (mensola[i].Titolo.equalsIgnoreCase(titolo)) {
-                    arrayautori[j] = mensola[i].Autore;
-                    j++;
-                } else {
-                    throw new Exception("Libro non trovato");
-                }
-            }
-
-        }
-        return arrayautori;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
