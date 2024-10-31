@@ -1,0 +1,43 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner tastiera = new Scanner(System.in);
+        
+        int quanteAuto = 0;
+        final int MAXAUTO = 30;
+        ArrayList<Automobile> concessionaria = new ArrayList<>();
+
+        System.out.println("Quante auto vuoi inserire?");
+        quanteAuto = tastiera.nextInt();
+        
+        for(int i = 0, i < quanteAuto, i++){
+            Automobile auto1 = InserimentoAuto(concessionaria, tastiera, MAXAUTO);
+            System.out.println(auto1);
+        }
+    }
+    public static Automobile InserimentoAuto(ArrayList<Automobile> concessionaria, Scanner tastiera, final int MAXAUTO ){
+
+        Automobile auto = new Automobile();
+
+        if (concessionaria.size() <= MAXAUTO) {
+        System.out.println("Inserisci marca: ");
+        auto.marca = tastiera.nextLine();
+        System.out.println("Inserisci modello: ");
+        auto.modello = tastiera.nextLine();
+        System.out.println("Inserisci data di produzione: ");
+        auto.produzione = LocalDate.parse(tastiera.nextLine(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        System.out.println("Inserisci cilindrata: ");
+        auto.cilindrata = tastiera.nextInt();
+
+        concessionaria.add(auto);
+        } else{
+            System.out.println("Concessionaria piena");
+        }
+
+        return auto;
+    }
+}
