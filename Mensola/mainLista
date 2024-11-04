@@ -12,57 +12,94 @@ public class Main {
         Scanner tastiera = new Scanner(System.in);
         final int MAXLIBRI = 3;
         int libriDaInserire = 0;
-        ArrayList<Libro> mensola = new ArrayList<>();
-        String libroDaCancellare;
+        ArrayList<Libro> mensola = new ArrayList<Libro>(MAXLIBRI);
+        String titoloLibroDaCancellare;
+        String autoreLibroDaCancellare;
+        String titoloLibroDaModificare;
+        String autoreLibroDaModificare;
+        int nuovePagine = 0;
         boolean uscita = false;
         int cont = 0;
         do {
-            String[] opzioni = {"---MENSOLA---", "1. Inserimento", "2. Visualizza","3. Cancella Elemento", "4. Fine"};
+            String[] opzioni = {"---MENSOLA---", "1. Inserimento", "2. Visualizza", "3. Cancella Elemento", "4. Modifica Numero di Pagine", "5. Fine"};
             int scelta = Menu(opzioni, tastiera);
             switch (scelta) {
 
                 case 1 -> {
-                    libriDaInserire = 0;
-                    System.out.println("Quanti libri vuoi inserire?");
-                    libriDaInserire = tastiera.nextInt();
-                    Inserimento(tastiera, libriDaInserire, mensola);
+                    if (cont < MAXLIBRI) {
+                        System.out.println("Quanti libri vuoi inserire?");
+                        libriDaInserire = Integer.parseInt((tastiera.nextLine()));
+                        Inserimento(tastiera, libriDaInserire, mensola);
+                        cont++;
+                    }
                 }
                 case 2 -> {
-                    mensola.forEach(l-> System.out.println(l.FormattaDati())); //Espressione Lambda
+                    mensola.forEach(l -> System.out.println(l.FormattaDati())); //Espressione Lambda
 
                 }
                 case 3 -> {
                     System.out.println("Digita il titolo del libro che vuoi rimuovere: ");
-                    try{
-                        libroDaCancellare = tastiera.nextLine();
-                        CancellaLibro(libroDaCancellare,mensola);
-                    }catch (Exception e){
+                    titoloLibroDaCancellare = tastiera.nextLine();
+                    System.out.println("Digita l' autore del libro che vuoi rimuovere: ");
+                    autoreLibroDaCancellare = tastiera.nextLine();
+                    try {
+                        CancellaLibro(titoloLibroDaCancellare, autoreLibroDaCancellare, mensola);
+                    } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
 
                 }
                 case 4 -> {
+                    System.out.println("Digita l' autore del libro di cui vuoi modificare il numero di pagine: ");
+                    autoreLibroDaModificare = tastiera.nextLine();
+                    System.out.println("Digita il titolo del libro di cui vuoi modificare il numero di pagine: ");
+                    titoloLibroDaModificare = tastiera.nextLine();
+                    System.out.println("Digita il nuovo numero di pagine: ");
+                    nuovePagine = Integer.parseInt(tastiera.nextLine());
+                    try {
+                        ModificaPagine(autoreLibroDaModificare, titoloLibroDaModificare, nuovePagine, mensola);
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+
+                }
+                case 5 -> {
                     System.out.println("Fine");
                     uscita = true;
                 }
+                default -> System.out.println("Scelta non valida");
             }
         } while (!uscita);
     }
-    public static void Inserimento(Scanner tastiera, int libriDaInserire, List<Libro> mensola) {
+
+    public static void Inserimento(Scanner tastiera, int libriDaInserire, ArrayList<Libro> mensola) {
 
         for (int i = 0; i < libriDaInserire; i++) {
             // Aggiunta di elementi alla lista
             mensola.add(LeggiLibro(tastiera));
+
         }
     }
 
-    public static void CancellaLibro(String libroDaCancellare, List<Libro> mensola) {
-        boolean libroTrovato = mensola.removeIf(l -> l.Titolo.equalsIgnoreCase(libroDaCancellare));
+    public static void CancellaLibro(String autoreLibroDaCancellare, String titoloLibroDaCancellare, List<Libro> mensola) {
+        boolean libroTrovato = mensola.removeIf(l -> l.Titolo.equalsIgnoreCase(titoloLibroDaCancellare) && l.Autore.equalsIgnoreCase(autoreLibroDaCancellare));
 
         if (!libroTrovato) {
-            System.out.println("Il libro \"" + libroDaCancellare + "\" non è stato trovato nella mensola.");
+            System.out.println("Il libro \"" + titoloLibroDaCancellare + "\" non è stato trovato nella mensola.");
         } else {
-            System.out.println("Il libro \"" + libroDaCancellare + "\" è stato cancellato.");
+            System.out.println("Il libro \"" + titoloLibroDaCancellare + "\" è stato cancellato.");
         }
+    }
+
+    public static void ModificaPagine(String autoreLibroDaModificare, String titoloLibroDaModificare, int nuovePagine, List<Libro> mensola) throws Exception {
+        for (Libro libro : mensola) {
+            if (libro.Titolo.equalsIgnoreCase(titoloLibroDaModificare) && libro.Autore.equalsIgnoreCase(autoreLibroDaModificare)) {
+                libro.pagine = nuovePagine;
+                System.out.println("Il numero di pagine per il libro \"" + titoloLibroDaModificare + "\" è stato aggiornato a " + nuovePagine + ".");
+                return;
+            }
+        }
+
+        throw new Exception("Il libro \"" + titoloLibroDaModificare + "\" non è stato trovato nella mensola.");
     }
 }
