@@ -1,0 +1,10 @@
+package lunaPark;
+
+public enum Giostra {
+
+    RuotaPanoramica,
+    Autoscontro,
+    Ottovolante,
+    Tagadà;
+
+}
