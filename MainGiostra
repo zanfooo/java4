@@ -1,0 +1,62 @@
+import lunaPark.Giostra;
+import lunaPark.Persona;
+
+import java.time.LocalDate;
+import java.util.Scanner;
+
+import static utility.Tools.*;
+
+public class Main {
+    public static void main(String[] args) {
+        int scelta;
+        int persone;
+        final int MAXPERSONE = 10;
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Bienvido al Luna Park de rovigo tsnt");
+        System.out.println("Quanti biglietti volete acquistare?");
+        persone = scanner.nextInt();
+        int cont = 0;
+
+        boolean uscita = false;
+        do {
+            String[] opzioni = {"---LUNA PARK---", "1. Entrata", "2. Visualizza", ""};
+
+            scelta = Menu(opzioni, scanner);
+            switch (scelta) {
+                case 1 -> {
+                    if (cont < MAXPERSONE) {
+                        System.out.println("Benvido");
+                        Persona persona = ingresso(scanner);
+                        cont++;
+                    } else
+                        System.out.println("Limite superato");
+                }
+
+                case 2 -> {
+                    System.out.println("Quale giostra vuoi fare?: ");
+                    String[] opzioniGiostra = {"---GIOSTRE LUNA PARK---", "1. Ruota Panoramica", "2. Autoscontro", "3. Ottovolante", "4. Tagadà"};
+                    int scegliGiostra = Menu(opzioniGiostra, scanner);
+                    Giostra giostraSelezionata = switch (scegliGiostra) {
+                        case 1 -> Giostra.RuotaPanoramica;
+                        case 2 -> Giostra.Autoscontro;
+                        default -> null;
+                    };
+
+                }
+
+                case 3 -> {
+                    uscita = true;
+                }
+            }
+        } while (!uscita);
+    }
+
+    public static Persona ingresso(Scanner scanner) {
+        Persona persona = new Persona();
+        System.out.println("Inserisci il nome: ");
+        persona.nome = scanner.nextLine();
+        System.out.println("Ecco il numero del tuo biglietto: " + persona.nBiglietto);
+        persona.accesso = LocalDate.now();
+        return persona;
+    }
+}
