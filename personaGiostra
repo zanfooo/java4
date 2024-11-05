@@ -1,0 +1,18 @@
+package lunaPark;
+
+import java.time.LocalDate;
+import java.util.Random;
+
+public class Persona {
+    Random genera = new Random();
+
+    public String nome;
+    public int nBiglietto = genera.nextInt(0,100);
+    public LocalDate accesso;
+
+    public String stampa() {
+            return String.format("Nome: %s, ID Biglietto: %d, Accesso: %s", nome, nBiglietto, accesso);
+    }
+}
+
+
