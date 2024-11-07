@@ -1,0 +1,104 @@
+import lunaPark.Giostra;
+import lunaPark.Persona;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import static utility.Tools.*;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        int scelta;
+        final int MAXPERSONE = 10;
+        int nBiglietto = 0;
+        ArrayList<Persona> lista = new ArrayList<>();
+        Scanner scanner = new Scanner(System.in);
+        String[] opzioniGiostra = {"---GIOSTRE LUNA PARK---", "1. Ruota Panoramica", "2. Autoscontro", "3. Ottovolante", "4. Tagadà"};
+        System.out.println("Bienvido al Luna Park de rovigo tsnt");
+
+        int contaPersone = 0;
+
+        boolean uscita = false;
+        do {
+            String[] opzioni = {"---LUNA PARK---", "1. Entrata", "2. Visualizza lista giostre fatte", "3. Nuova Giostra", "4. Uscita", "5. Fine"};
+
+            scelta = Menu(opzioni, scanner);
+            switch (scelta) {
+                case 1 -> {
+                    try {
+                        if (contaPersone < MAXPERSONE) {
+                            System.out.println("Sei entarto nel Luna Park");
+                            Persona persona = ingresso(scanner, ++nBiglietto);
+                            contaPersone++;
+                            lista.add(persona);
+                            System.out.println("Numero assegnato al cliente: " + nBiglietto);
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Limite di persone superato");
+                    }
+                }
+                
+
+                case 2 -> {
+                    int numeroB = Integer.parseInt(scanner.nextLine());
+                    Persona persona = metodoNuovaGiostra(numeroB, scanner, opzioniGiostra);
+                    if(metodoTrovaBiglietto(numeroB, lista)){
+                        Persona persona = metodoTrovaBiglietto(numeroB, scanner);
+                    }
+
+                }
+
+                case 3 -> {
+                    System.out.println("Quale giostra vuoi fare?: ");
+                    
+                    int scegliGiostra = Menu(opzioniGiostra, scanner);
+                    Giostra giostraSelezionata = switch (scegliGiostra) {
+                        case 1 -> Giostra.RuotaPanoramica;
+                        case 2 -> Giostra.Autoscontro;
+                        case 3 -> Giostra.Ottovolante;
+                        case 4 -> Giostra.Tagadà;
+                        default -> null;
+                    };
+                }
+                case 4 -> {
+                    contaPersone--;
+
+                }
+                case 5 -> {
+                    uscita = true;
+                }
+            }
+        } while (!uscita);
+    }
+
+    public static Persona ingresso(Scanner scanner, int nBiglietto) {
+        Persona persona = new Persona();
+        System.out.println("Inserisci il nome: ");
+        persona.nome = scanner.nextLine();
+        System.out.println("Ecco il numero del tuo biglietto: " + persona.nBiglietto);
+        persona.momentoEvento = LocalDateTime.now();
+        return persona;
+    }
+
+    public static Persona metodoNuovaGiostra(int numeroB, Scanner scanner, String[] opzioniGiostra) {
+        Persona persona = new Persona();
+        boolean esci = true;
+        do{
+            try{
+                for(int i = 0; i < opzioniGiostra.length; i++) {
+                    System.out.println(opzioniGiostra[i]);
+                }
+                System.out.println();
+            }catch(Exception e) {
+                
+            }
+        }while(esci);
+        return persona;
+    }
+
+    public static void metodoTrovaBiglietto(ArrayList<Persona> gestore) {
+        
+    }
+}
