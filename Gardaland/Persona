@@ -1,0 +1,22 @@
+package lunaPark;
+
+import java.time.LocalDateTime;
+import java.util.Random;
+public class Persona {
+    Random random = new Random();
+    public String nome;
+    public LocalDateTime accesso;
+    public LocalDateTime uscita;
+    public int nBiglietto = random.nextInt(0, 999);
+
+    @Override
+    public boolean equals(Object obj) {
+        Persona persona = new Persona();
+        return (nBiglietto == persona.nBiglietto);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Nome: %s, ID Biglietto: %d, Accesso: %s, Uscita: %s", nome, nBiglietto, accesso, uscita);
+    }
+}
