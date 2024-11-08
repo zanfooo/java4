@@ -1,0 +1,78 @@
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Scanner;
+import lunaPark.Persona;
+import static utility.Tools.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner tastiera = new Scanner(System.in);
+        final int MAXPERSONE = 10;
+        int contaPersone = 0;
+        ArrayList<Persona> listaPersone = new ArrayList<>();
+        int scelta = 0;
+        boolean uscita = false;
+        int biglietto;
+        String nRicerca;
+        String[] opzioni = {"---Benvenuti a Gardaland---", "1. Entrata", "2. Le nostre giostre", "3. Visualiza giostre fatte", "4. Visualizza il tuo numero di biglietto", "5. Uscita"};
+        do {
+            scelta = Menu(opzioni, tastiera);
+            switch (scelta) {
+                case 1 -> {
+                    System.out.println("---Benvenuto a Gardaland---");
+                    try {
+                        if (++contaPersone < MAXPERSONE) {
+                            Persona persona = inserimento(listaPersone, tastiera);
+                            listaPersone.add(persona);
+                            System.out.println("Numero assegnato al cliente: "+ persona.nBiglietto);
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Gardaland ha raggiunta la massima capienza");
+                        throw new RuntimeException(e);
+                    }
+
+                }
+                case 2 -> {
+                    listaPersone.forEach(m-> System.out.println(m.toString()));
+
+                }
+                case 3 -> {
+                    System.out.println("Quale biglietto vuoi rimuovere?");
+                    Persona persona = new Persona();
+
+                    persona.nBiglietto = Integer.parseInt(tastiera.nextLine());
+                    boolean rimosso = listaPersone.removeIf(p-> p.nBiglietto == persona.nBiglietto);
+                    if (rimosso){
+                        contaPersone--;
+                    }
+                }
+                case 4 -> {
+                    System.out.println("Per sapere il tuo numeor di biglietto inserisci il tuo nome: ");
+                    nRicerca = tastiera.nextLine();
+                    ricerca(listaPersone, nRicerca);
+                }
+                case 5 -> {
+                    uscita = true;
+                }
+            }
+        } while (!uscita);
+    }
+
+    public static Persona inserimento(ArrayList<Persona> listaPersone, Scanner tastiera) {
+        Persona persona = new Persona();
+        System.out.println("Inerisci il tuo nome: ");
+        persona.nome = tastiera.nextLine();
+        persona.accesso = LocalDateTime.now();
+
+        return persona;
+    }
+
+    public static void ricerca(ArrayList<Persona> listaPersona, String nRicerca) {
+        for(Persona persona : listaPersona){
+            if(persona.nome.equalsIgnoreCase(nRicerca));{
+                System.out.println(persona.nBiglietto);
+            }
+        }
+    }
+
+}
