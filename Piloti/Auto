@@ -1,58 +1,39 @@
 package package1;
 
-public class Pilota {
+public class Auto {
 
-    private String nome;
-    private String cognome;
-    private String nazionalità;
-    private int età;
-    
+    private String scuderia;
+    private int cilindrata;
+    private Pilota pilota;
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setScuderia(String scuderia) {
+        this.scuderia = scuderia;
     }
 
-    public void setCognome(String cognome) {
-        this.cognome = cognome;
+    public void setCilindrata(int cilindrata) {
+        this.cilindrata = cilindrata;
     }
 
-    public void setNazionalità(String nazionalità) {
-        this.nazionalità = nazionalità;
+    public String getScuderia() {
+        return scuderia;
     }
 
-    public void setEtà(int età) {
-        this.età = età;
+    public int getCilindrata() {
+        return cilindrata;
     }
 
-     public String getNome() {
-        return nome;
-    }
-
-    public String getCognome() {
-        return cognome;
-    }
-
-    public String getNazionalità() {
-        return nazionalità;
-    }
-
-    public int getEtà() {
-        return età;
+    public void setPilota(Pilota pilota) {
+        this.pilota = pilota;
     }
 
 
     @Override
     public String toString() {
-        return String.format("Nome: %s, Cognome: %s, Nazionalità: %s, Età: %d", nome, cognome, nazionalità, età);
+        return String.format("Scuderia: %s, Cilindrata: %d", scuderia, cilindrata);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        else
-            return false;
+        return super.equals(obj);
     }
-
-
 }
