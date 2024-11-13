@@ -6,10 +6,7 @@ public class Pilota {
     private String cognome;
     private String nazionalità;
     private int età;
-
-
-    public Pilota() {
-    }
+    
 
     public void setNome(String nome) {
         this.nome = nome;
@@ -19,8 +16,8 @@ public class Pilota {
         this.cognome = cognome;
     }
 
-    public void setNazionalità(String _nazionalita) {
-        this.nazionalità = _nazionalita;
+    public void setNazionalità(String nazionalità) {
+        this.nazionalità = nazionalità;
     }
 
     public void setEtà(int età) {
@@ -41,7 +38,7 @@ public class Pilota {
 
     public int getEtà() {
         return età;
-    } 
+    }
 
 
     @Override
