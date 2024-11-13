@@ -1,0 +1,61 @@
+package package1;
+
+public class Pilota {
+
+    private String nome;
+    private String cognome;
+    private String nazionalità;
+    private int età;
+
+
+    public Pilota() {
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setCognome(String cognome) {
+        this.cognome = cognome;
+    }
+
+    public void setNazionalità(String _nazionalita) {
+        this.nazionalità = _nazionalita;
+    }
+
+    public void setEtà(int età) {
+        this.età = età;
+    }
+
+     public String getNome() {
+        return nome;
+    }
+
+    public String getCognome() {
+        return cognome;
+    }
+
+    public String getNazionalità() {
+        return nazionalità;
+    }
+
+    public int getEtà() {
+        return età;
+    } 
+
+
+    @Override
+    public String toString() {
+        return String.format("Nome: %s, Cognome: %s, Nazionalità: %s, Età: %d", nome, cognome, nazionalità, età);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        else
+            return false;
+    }
+
+
+}
