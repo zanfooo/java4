@@ -1,17 +1,17 @@
-package lunaPark;
+package lunapark;
 
 import java.time.LocalDateTime;
 import java.util.Random;
-public class Persona {
+public class Biglietto {
     Random random = new Random();
     public String nome;
     public LocalDateTime accesso;
     public LocalDateTime uscita;
-    public int nBiglietto = random.nextInt(0, 999);
+    public int nBiglietto = random.nextInt(0, 99999);
 
     @Override
     public boolean equals(Object obj) {
-        Persona persona = new Persona();
+        Biglietto persona = new Biglietto();
         return (nBiglietto == persona.nBiglietto);
     }
 
