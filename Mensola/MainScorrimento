@@ -1,0 +1,43 @@
+public class Main {
+    public static void main(String[] args) {
+        Scanner tastiera = new Scanner(System.in);
+        final int MAXLIBRI = 3;
+        int libriDaInserire = 0;
+        ArrayList<Libro> mensola = new ArrayList<Libro>(MAXLIBRI);
+        int pos = 0; // Posizione iniziale
+        boolean uscita = false;
+        int cont = 0;
+        do {
+            String[] opzioni = {"---MENSOLA---", "1. Inserimento", "2. Visualizza", "3. Cancella Elemento", 
+                                "4. Modifica Numero di Pagine", "5. Scorrimento", "6. Fine"};
+            int scelta = Menu(opzioni, tastiera);
+            switch (scelta) {
+                case 1 -> {
+                    if (cont < MAXLIBRI) {
+                        System.out.println("Quanti libri vuoi inserire?");
+                        libriDaInserire = Integer.parseInt(tastiera.nextLine());
+                        inserimento(tastiera, libriDaInserire, mensola);
+                        cont++;
+                    }
+                }
+                case 2 -> {
+                    mensola.forEach(l -> System.out.println(l.FormattaDati())); // Espressione Lambda
+                }
+                case 3 -> {
+                    System.out.println("Digita il titolo del libro che vuoi rimuovere: ");
+                    String titoloLibroDaCancellare = tastiera.nextLine();
+                    System.out.println("Digita l' autore del libro che vuoi rimuovere: ");
+                    String autoreLibroDaCancellare = tastiera.nextLine();
+                    try {
+                        cancellaLibro(titoloLibroDaCancellare, autoreLibroDaCancellare, mensola);
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
+                case 4 -> {
+                    System.out.println("Digita l' autore del libro di cui vuoi modificare il numero di pagine: ");
+                    String autoreLibroDaModificare = tastiera.nextLine();
+                    System.out.println("Digita il titolo del libro di cui vuoi modificare il numero di pagine: ");
+                    String titoloLibroDaModificare = tastiera.nextLine();
+                    System.out.println("Digita il nuovo numero di pagine: ");
+                    int nuovePagine
