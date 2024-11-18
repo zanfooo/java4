@@ -41,3 +41,92 @@ public class Main {
                     String titoloLibroDaModificare = tastiera.nextLine();
                     System.out.println("Digita il nuovo numero di pagine: ");
                     int nuovePagine
+                    int nuovePagine = Integer.parseInt(tastiera.nextLine());
+                    try {
+                        modificaPagine(autoreLibroDaModificare, titoloLibroDaModificare, nuovePagine, mensola);
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
+                case 5 -> {
+                    if (mensola.isEmpty()) {
+                        System.out.println("La mensola è vuota. Inserisci dei libri prima di scorrere.");
+                        break;
+                    }
+
+                    System.out.println("Da quale posizione vuoi iniziare a scorrere la mensola? (0-based)");
+                    pos = Integer.parseInt(tastiera.nextLine());
+
+                    if (pos < 0 || pos >= mensola.size()) {
+                        System.out.println("Posizione non valida. Riprova.");
+                        break;
+                    }
+
+                    boolean continuaScorrimento = true;
+                    while (continuaScorrimento) {
+                        System.out.println("Libro corrente: " + mensola.get(pos).FormattaDati());
+                        String[] opzioniScorrimento = {"1-Precedente", "2-Successivo", "3-Fine"};
+                        int sceltaScorrimento = Menu(opzioniScorrimento, tastiera);
+
+                        switch (sceltaScorrimento) {
+                            case 1 -> pos = Precedente(mensola, pos);
+                            case 2 -> pos = Successivo(mensola, pos);
+                            case 3 -> continuaScorrimento = false;
+                            default -> System.out.println("Scelta non valida");
+                        }
+                    }
+                }
+                case 6 -> {
+                    System.out.println("Fine");
+                    uscita = true;
+                }
+                default -> System.out.println("Scelta non valida");
+            }
+        } while (!uscita);
+    }
+
+    public static void inserimento(Scanner tastiera, int libriDaInserire, ArrayList<Libro> mensola) {
+        for (int i = 0; i < libriDaInserire; i++) {
+            // Aggiunta di elementi alla lista
+            mensola.add(LeggiLibro(tastiera));
+        }
+    }
+
+    public static void cancellaLibro(String autoreLibroDaCancellare, String titoloLibroDaCancellare, ArrayList<Libro> mensola) {
+        boolean libroTrovato = mensola.removeIf(l -> l.Titolo.equalsIgnoreCase(titoloLibroDaCancellare) && l.Autore.equalsIgnoreCase(autoreLibroDaCancellare));
+
+        if (!libroTrovato) {
+            System.out.println("Il libro \"" + titoloLibroDaCancellare + "\" non è stato trovato nella mensola");
+        } else {
+            System.out.println("Il libro \"" + titoloLibroDaCancellare + "\" è stato cancellato");
+        }
+    }
+
+    public static void modificaPagine(String autoreLibroDaModificare, String titoloLibroDaModificare, int nuovePagine, ArrayList<Libro> mensola) throws Exception {
+        for (Libro libro : mensola) {
+            if (libro.Titolo.equalsIgnoreCase(titoloLibroDaModificare) && libro.Autore.equalsIgnoreCase(autoreLibroDaModificare)) {
+                libro.pagine = nuovePagine;
+                System.out.println("Il numero di pagine per il libro \"" + titoloLibroDaModificare + "\" è stato aggiornato a " + nuovePagine);
+                return;
+            }
+        }
+
+        throw new Exception("Il libro \"" + titoloLibroDaModificare + "\" non è stato trovato nella mensola");
+    }
+
+    public static int Precedente(ArrayList<Libro> mensola, int pos) {
+        pos--;
+        if (pos < 0) {
+            pos = mensola.size() - 1; // Torna all'ultimo libro
+        }
+        return pos;
+    }
+
+    public static int Successivo(ArrayList<Libro> mensola, int pos) {
+        pos++;
+        if (pos >= mensola.size()) {
+            pos = 0; // Torna al primo libro
+        }
+        return pos;
+    }
+}
