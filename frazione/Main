@@ -1,0 +1,23 @@
+ public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            // Leggere due frazioni dall'utente
+            Frazione f1 = Frazione.leggiFrazioneDaInput(scanner);
+            Frazione f2 = Frazione.leggiFrazioneDaInput(scanner);
+
+            // Somma delle frazioni
+            Frazione sommaFrazione = f1.somma(f2);
+            System.out.println("Somma come frazione: " + sommaFrazione);
+
+            // Somma decimale delle frazioni
+            double sommaDecimale = f1.sommaDecimale(f2);
+            System.out.println("Somma come decimale: " + sommaDecimale);
+
+        } catch (IllegalArgumentException e) {
+            System.out.println("Errore: " + e.getMessage());
+        } finally {
+            scanner.close();
+        }
+    }
+}
