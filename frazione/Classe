@@ -1,0 +1,73 @@
+ class Frazione {
+    private int numeratore;
+    private int denominatore;
+
+    // Costruttore
+    public Frazione(int numeratore, int denominatore) {
+        if (denominatore == 0) {
+            throw new IllegalArgumentException("Il denominatore non può essere zero.");
+        }
+        this.numeratore = numeratore;
+        this.denominatore = denominatore;
+        semplifica(); // Semplifica la frazione al momento della creazione
+    }
+
+    // Costruttore per una stringa (es. "1/4")
+    public Frazione(String frazione) {
+        String[] parts = frazione.split("/");
+        if (parts.length != 2) {
+            throw new IllegalArgumentException("Formato della frazione non valido. Deve essere 'numeratore/denominatore'.");
+        }
+        this.numeratore = Integer.parseInt(parts[0].trim());
+        this.denominatore = Integer.parseInt(parts[1].trim());
+        if (this.denominatore == 0) {
+            throw new IllegalArgumentException("Il denominatore non può essere zero.");
+        }
+        semplifica();
+    }
+
+    // Metodo per sommare due frazioni e restituire una nuova frazione
+    public Frazione somma(Frazione altra) {
+        int nuovoNumeratore = this.numeratore * altra.denominatore + altra.numeratore * this.denominatore;
+        int nuovoDenominatore = this.denominatore * altra.denominatore;
+        return new Frazione(nuovoNumeratore, nuovoDenominatore);
+    }
+
+    // Metodo per sommare due frazioni e restituire il valore decimale
+    public double sommaDecimale(Frazione altra) {
+        Frazione somma = this.somma(altra);
+        return somma.toDecimale();
+    }
+
+    // Metodo per ottenere il valore decimale della frazione
+    public double toDecimale() {
+        return (double) numeratore / denominatore;
+    }
+
+    // Metodo per visualizzare la frazione come stringa
+    @Override
+    public String toString() {
+        return numeratore + "/" + denominatore;
+    }
+
+    // Metodo per semplificare la frazione
+    private void semplifica() {
+        int gcd = mcd(numeratore, denominatore); // Calcolo del massimo comune divisore
+        numeratore /= gcd;
+        denominatore /= gcd;
+    }
+
+    // Metodo per calcolare il massimo comune divisore (MCD)
+    private int mcd(int a, int b) {
+        if (b == 0) return Math.abs(a);
+        return mcd(b, a % b);
+    }
+
+    // Metodo statico per leggere una frazione dall'input
+    public static Frazione leggiFrazioneDaInput(Scanner scanner) {
+        System.out.print("Inserisci una frazione nel formato 'numeratore/denominatore': ");
+        String input = scanner.nextLine();
+        return new Frazione(input);
+    }
+
+    
