@@ -1,4 +1,7 @@
- public static void main(String[] args) {
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
         try {
@@ -13,11 +16,8 @@
             // Somma decimale delle frazioni
             double sommaDecimale = f1.sommaDecimale(f2);
             System.out.println("Somma come decimale: " + sommaDecimale);
-
         } catch (IllegalArgumentException e) {
             System.out.println("Errore: " + e.getMessage());
-        } finally {
-            scanner.close();
         }
     }
 }
