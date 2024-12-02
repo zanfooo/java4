@@ -1,0 +1,61 @@
+/*
+Secondo me il cronometro deve funzionare in modo 
+tale che ci sia un metodo che permetta di avviarlo
+e quindi tramite il current time sapere il preciso
+momento di avvio e salvarlo in una variabile, per 
+poi fare la differenza di tempo tra il momento in
+cui il termometro è stato fermato tramite il metodo 
+ferma e l avvio, questo si può fare anche facendo
+cronometrazioni multiple per esempio per una gara
+mettendo lo stesso tempo di avvio per tutti ma che
+quando un certo oggetto arriva a un certo stato si
+fermi il suo cronometro salvando il tempo.
+*/
+public class Cronometro {
+    private long inizio;
+    private long fine;
+    private boolean inEsecuzione;
+
+    // Metodo per avviare il cronometro
+    public void avvia() {
+        inizio = System.currentTimeMillis();
+        fine = 0;
+        inEsecuzione = true;
+        System.out.println("Cronometro avviato.");
+    }
+
+    // Metodo per fermare il cronometro
+    public void ferma() {
+        if (inEsecuzione) {
+            fine = System.currentTimeMillis();
+            inEsecuzione = false;
+            System.out.println("Cronometro fermato.");
+        } else {
+            System.out.println("Il cronometro non è in esecuzione.");
+        }
+    }
+
+    // Metodo per calcolare il tempo trascorso in millisecondi
+    public long tempoTrascorso() {
+        if (inizio == 0) {
+            System.out.println("Il cronometro non è stato avviato.");
+            return 0;
+        }
+        return inEsecuzione ? (System.currentTimeMillis() - inizio) : (fine - inizio);
+    }
+
+    // Metodo principale per testare la classe
+    public static void main(String[] args) {
+        Cronometro cronometro = new Cronometro();
+
+        cronometro.avvia();
+        try {
+            Thread.sleep(2000); // Simula un'attesa di 2 secondi
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        cronometro.ferma();
+
+        System.out.println("Tempo trascorso: " + cronometro.tempoTrascorso() + " millisecondi.");
+    }
+}
