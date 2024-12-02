@@ -1,4 +1,6 @@
- class Frazione {
+import java.util.Scanner;
+
+class Frazione {
     private int numeratore;
     private int denominatore;
 
@@ -14,12 +16,12 @@
 
     // Costruttore per una stringa (es. "1/4")
     public Frazione(String frazione) {
-        String[] parts = frazione.split("/");
-        if (parts.length != 2) {
+        String[] parti = frazione.split("/");
+        if (parti.length != 2) {
             throw new IllegalArgumentException("Formato della frazione non valido. Deve essere 'numeratore/denominatore'.");
         }
-        this.numeratore = Integer.parseInt(parts[0].trim());
-        this.denominatore = Integer.parseInt(parts[1].trim());
+        this.numeratore = Integer.parseInt(parti[0].trim());
+        this.denominatore = Integer.parseInt(parti[1].trim());
         if (this.denominatore == 0) {
             throw new IllegalArgumentException("Il denominatore non può essere zero.");
         }
@@ -69,5 +71,6 @@
         String input = scanner.nextLine();
         return new Frazione(input);
     }
+}
 
     
