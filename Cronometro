@@ -1,16 +1,126 @@
+import java.util.Scanner;
+
 /*
-Secondo me il cronometro deve funzionare in modo 
+Secondo me il cronometro deve funzionare in modo
 tale che ci sia un metodo che permetta di avviarlo
 e quindi tramite il current time sapere il preciso
-momento di avvio e salvarlo in una variabile, per 
+momento di avvio e salvarlo in una variabile, per
 poi fare la differenza di tempo tra il momento in
-cui il termometro è stato fermato tramite il metodo 
+cui il termometro è stato fermato tramite il metodo
 ferma e l avvio, questo si può fare anche facendo
 cronometrazioni multiple per esempio per una gara
 mettendo lo stesso tempo di avvio per tutti ma che
 quando un certo oggetto arriva a un certo stato si
 fermi il suo cronometro salvando il tempo.
 */
+public class Main {
+    public static void main(String[] args) {
+        int scelta;
+        Scanner tastiera = new Scanner(System.in);
+        Cronometro cronometro = new Cronometro();
+        do{
+            System.out.println("Inserisci 1 per avviare il cronometro, 2 per fermare il crnometro, 0 per uscire dal programma.");
+            scelta = tastiera.nextInt();
+            switch(scelta){
+                case 1 -> {
+                    cronometro.avvia();
+                    System.out.println("qui");
+                }
+                case 2 -> {
+                    cronometro.ferma();
+                    System.out.println("Tempo trascorso: " + cronometro.tempoTrascorso() + " millisecondi.");
+                }
+                case 3 -> 
+            }
+        }while(scelta==0);
+
+
+
+
+
+        
+    }
+}
+
+
+
+import java.util.Objects;
+
+public class Pilota {
+    private String nome;
+    private String cognome;
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pilota pilota = (Pilota) o;
+        return Objects.equals(nome, pilota.nome) && Objects.equals(cognome, pilota.cognome);
+    }
+
+    public String getCognome() {
+        return cognome;
+    }
+
+    public void setCognome(String cognome) {
+        this.cognome = cognome;
+    }
+
+    @Override
+    public String toString() {
+        return "nome='" + nome + '\'' + ", cognome='" + cognome;
+    }
+}
+
+
+
+import java.util.Objects;
+
+public class Auto {
+    private String scuderia;
+    private int cilindrata;
+
+    public String getScuderia() {
+        return scuderia;
+    }
+
+    public void setScuderia(String scuderia) {
+        this.scuderia = scuderia;
+    }
+
+    public int getCilindrata() {
+        return cilindrata;
+    }
+
+    public void setCilindrata(int cilindrata) {
+        this.cilindrata = cilindrata;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Auto auto = (Auto) o;
+        return cilindrata == auto.cilindrata && Objects.equals(scuderia, auto.scuderia);
+    }
+
+    @Override
+    public String toString() {
+        return "scuderia='" + scuderia + '\'' + ", cilindrata=" + cilindrata;
+    }
+}
+
+
+
+
 public class Cronometro {
     private long inizio;
     private long fine;
@@ -42,20 +152,5 @@ public class Cronometro {
             return 0;
         }
         return inEsecuzione ? (System.currentTimeMillis() - inizio) : (fine - inizio);
-    }
-
-    // Metodo principale per testare la classe
-    public static void main(String[] args) {
-        Cronometro cronometro = new Cronometro();
-
-        cronometro.avvia();
-        try {
-            Thread.sleep(2000); // Simula un'attesa di 2 secondi
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        cronometro.ferma();
-
-        System.out.println("Tempo trascorso: " + cronometro.tempoTrascorso() + " millisecondi.");
     }
 }
