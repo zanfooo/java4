@@ -1,38 +1,19 @@
-package package1;
-
 import java.util.ArrayList;
 
 public class Gara {
     private String nomeGara;
-    private Pilota risultato;
-    private ArrayList<Auto> listaAuto;
+    private ArrayList<Scuderia> autoInGara;
 
-    public String getNomeGara() {
-        return nomeGara;
-    }
-
-    public void setNomeGara(String nomeGara) {
+    public Gara(String nomeGara) {
         this.nomeGara = nomeGara;
+        this.autoInGara = new ArrayList<>();
     }
 
-    public Pilota getRisultato() {
-        return risultato;
+    public void aggiungiScuderia(Scuderia scuderia) {
+        autoInGara.add(scuderia);
     }
 
-    public void setRisultato(Pilota risultato) {
-        this.risultato = risultato;
-    }
-
-    public ArrayList<Auto> getListaAuto() {
-        return listaAuto;
-    }
-
-    public void setListaAuto(ArrayList<Auto> listaAuto) {
-        this.listaAuto = listaAuto;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("Nome gara: " + nomeGara, "Risultato: " + risultato, "Lista auto: " + listaAuto);
+    public String corriGara() {
+        return "La gara " + nomeGara + " è finita!";
     }
 }
