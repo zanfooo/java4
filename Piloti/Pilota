@@ -1,30 +1,16 @@
-package package1;
-
 public class Pilota {
 
     private String nome;
     private String cognome;
-    private String nazionalità;
-    private int età;
-    
+    private String nazionalita;
 
-    public void setNome(String nome) {
+    public Pilota(String nome, String cognome, String nazionalita) {
         this.nome = nome;
-    }
-
-    public void setCognome(String cognome) {
         this.cognome = cognome;
+        this.nazionalita = nazionalita;
     }
 
-    public void setNazionalità(String nazionalità) {
-        this.nazionalità = nazionalità;
-    }
-
-    public void setEtà(int età) {
-        this.età = età;
-    }
-
-     public String getNome() {
+    public String getNome() {
         return nome;
     }
 
@@ -32,27 +18,27 @@ public class Pilota {
         return cognome;
     }
 
-    public String getNazionalità() {
-        return nazionalità;
+    public String getNazionalita() {
+        return nazionalita;
     }
 
-    public int getEtà() {
-        return età;
+    public void setNazionalita(String nazionalita) {
+        this.nazionalita = nazionalita;
     }
-
 
     @Override
     public String toString() {
-        return String.format("Nome: %s, Cognome: %s, Nazionalità: %s, Età: %d", nome, cognome, nazionalità, età);
+        return String.format("Nome: %s, Cognome: %s, Nazionalità: %s", nome, cognome, nazionalita);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        else
+        if (!(obj instanceof Pilota)) {
             return false;
+        } else {
+            Pilota p = (Pilota) obj;
+            return this.nome.equals(p.nome) && this.cognome.equals(p.cognome) && this.nazionalita.equals(p.nazionalita);
+        }
+
     }
-
-
 }
