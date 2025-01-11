@@ -1,0 +1,29 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+
+        ArrayList<Automobile> listaAuto = new ArrayList<>();
+        Scanner tastiera = new Scanner(System.in);
+
+        System.out.println("Inserisci l auto");
+        Automobile auto1 = new Automobile("Fiat","Panda", 300);
+        //listaAuto.add(Automobile auto1);
+        Automobile auto2 = new Automobile("Fiat","500", 300);
+
+        if (auto1.equals(auto2)){
+            System.out.println("Le auto sono uguali");
+        }else {
+            System.out.println("Le auto non sono uguali");
+        }
+        
+        if (auto1.equalsCilindrata(auto2)){
+            System.out.println("Le cilindrate sono uguali");
+        }else {
+            System.out.println("Le cilindrate non sono uguali");
+        }
+        }
+
+
+}
