@@ -1,0 +1,53 @@
+import java.util.Objects;
+
+public class Automobile {
+    public String marca;
+    public String modello;
+    public int cilindrata;
+
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public String getModello() {
+        return modello;
+    }
+
+    public int getCilindrata() {
+        return cilindrata;
+    }
+
+    public Automobile(String marca, String modello, int cilindrata) {
+        this.marca = marca;
+        this.modello = modello;
+        this.cilindrata = cilindrata;
+    }
+
+    public Automobile(Automobile auto)  {
+
+    }
+
+
+    @Override
+    public String toString() {
+        return "marca = " + marca + '\'' + ", Modello='" + modello + '\'' + ", Cilindrata=" + cilindrata;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Automobile that = (Automobile) o;
+        return getCilindrata() == that.getCilindrata() && Objects.equals(getMarca(), that.getMarca()) && Objects.equals(getModello(), that.getModello());
+    }
+    public boolean equalsCilindrata(Automobile auto) {
+        if(this.cilindrata == auto.cilindrata) return true;
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getMarca(), getModello(), getCilindrata());
+    }
+}
