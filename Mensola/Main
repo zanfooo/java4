@@ -61,8 +61,20 @@ public class Main {
                         System.out.println(e.getMessage());
                     }
 
-                }
-                case 5 -> {
+                } 
+										case 6 -> { 
+											try {
+                        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                        String jsonContent = gson.toJson(libreria);
+                        Files.write(Paths.get("libro.json"), jsonContent.getBytes());
+                        System.out.println("Salvataggio...");
+												System.out.println("Salvataggio eseguito correttamente");
+                    } catch (Exception e) {
+                        System.out.println("Errore nel salvataggio: " + e.getMessage());
+                    }
+										}
+
+                case 6 -> {
                     System.out.println("Fine");
                     uscita = true;
                 }
