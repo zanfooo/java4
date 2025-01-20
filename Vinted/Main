@@ -1,0 +1,14 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int indiceScelta = 0;
+        String[] vetScelte = {"---Benvenuto su Vinted---", "1 - Carica oggetto da vendere", "2 - Visualizza oggetti in vendita", "3 - Rimuovi oggetto dalle vendite","4 - Prenota oggetto"};
+        for (String tomare : vetScelte) {
+            System.out.println(vetScelte[indiceScelta]);
+            indiceScelta++;
+        }
+        
+    }
+}
