@@ -1,0 +1,9 @@
+package Merce;
+
+public enum Condizioni {
+    NUOVO_CON_CARTELLINO,
+    NUOVO_SENZA_CARTELLINO,
+    OTTIMO,
+    BUONO,
+    DISCRETO;
+}
