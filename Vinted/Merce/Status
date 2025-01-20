@@ -1,0 +1,7 @@
+package Merce;
+
+public enum Status {
+    IN_VENDITA,
+    PRENOTATO,
+    VENDUTO;
+}
