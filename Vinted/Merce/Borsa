@@ -1,0 +1,79 @@
+package Merce;
+
+public class Borsa {
+    public String colore;
+    public String marca;
+    public String modello;
+    public String size;
+    public Condizioni condizione;
+    public Status stato;
+
+    public String getColore() {
+        return colore;
+    }
+
+    public void setColore(String colore) {
+        this.colore = colore;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public String getModello() {
+        return modello;
+    }
+
+    public void setModello(String modello) {
+        this.modello = modello;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    public Condizioni getCondizione() {
+        return condizione;
+    }
+
+    public void setCondizione(Condizioni condizione) {
+        this.condizione = condizione;
+    }
+
+    public Status getStato() {
+        return stato;
+    }
+
+    public void setStato(Status stato) {
+        this.stato = stato;
+    }
+
+    public Borsa(String colore, String marca, String modello, String size, Condizioni condizione, Status stato) {
+        this.colore = colore;
+        this.marca = marca;
+        this.modello = modello;
+        this.size = size;
+        this.condizione = condizione;
+        this.stato = stato;
+    }
+
+    @Override
+    public String toString() {
+        return "Borsa{" +
+                "colore='" + colore + '\'' +
+                ", marca='" + marca + '\'' +
+                ", modello='" + modello + '\'' +
+                ", size='" + size + '\'' +
+                ", condizione=" + condizione +
+                ", stato=" + stato +
+                '}';
+    }
+}
