@@ -1,0 +1,79 @@
+package Merce;
+
+public class Scarpa {
+    public String colore;
+    public String marca;
+    public String modello;
+    public int taglia;
+    public Condizioni condizione;
+    public Status stato;
+
+    public String getColore() {
+        return colore;
+    }
+
+    public void setColore(String colore) {
+        this.colore = colore;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public String getModello() {
+        return modello;
+    }
+
+    public void setModello(String modello) {
+        this.modello = modello;
+    }
+
+    public int getTaglia() {
+        return taglia;
+    }
+
+    public void setTaglia(int taglia) {
+        this.taglia = taglia;
+    }
+
+    public Condizioni getCondizione() {
+        return condizione;
+    }
+
+    public void setCondizione(Condizioni condizione) {
+        this.condizione = condizione;
+    }
+
+    public Status getStato() {
+        return stato;
+    }
+
+    public void setStato(Status stato) {
+        this.stato = stato;
+    }
+
+    public Scarpa(String colore, String marca, String modello, int taglia, Condizioni condizione, Status stato) {
+        this.colore = colore;
+        this.marca = marca;
+        this.modello = modello;
+        this.taglia = taglia;
+        this.condizione = condizione;
+        this.stato = stato;
+    }
+
+    @Override
+    public String toString() {
+        return "Scarpa{" +
+                "colore='" + colore + '\'' +
+                ", marca='" + marca + '\'' +
+                ", modello='" + modello + '\'' +
+                ", taglia=" + taglia +
+                ", condizione=" + condizione +
+                ", stato=" + stato +
+                '}';
+    }
+}
