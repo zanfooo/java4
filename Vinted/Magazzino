@@ -1,0 +1,9 @@
+import Merce.Borsa;
+import Merce.Scarpa;
+
+import java.util.ArrayList;
+
+public class Magazzino {
+    public ArrayList<Borsa> listaBorse = new ArrayList<>();
+    public ArrayList<Scarpa> listaScarpe = new ArrayList<>();
+}
