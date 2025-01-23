@@ -1,0 +1,10 @@
+class Edge {
+    Node target; // Nodo di destinazione
+    int weight;  // Peso dell'arco
+
+    public Edge(Node target, int weight) {
+        this.target = target;
+        this.weight = weight;
+    }
+}
+
