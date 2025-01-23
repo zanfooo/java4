@@ -1,0 +1,22 @@
+import java.util.*;
+
+// Classe che rappresenta un nodo del grafo
+class Node implements Comparable<Node> {
+    String name;
+    List<Edge> edges; // Lista degli archi associati al nodo
+    int distance; // Distanza minima dal nodo sorgente
+    Node previous; // Nodo precedente nel percorso più breve
+
+    public Node(String name) {
+        this.name = name;
+        this.edges = new ArrayList<>();
+        this.distance = Integer.MAX_VALUE; // Inizialmente infinito
+        this.previous = null;
+    }
+
+    @Override
+    public int compareTo(Node other) {
+        return Integer.compare(this.distance, other.distance);
+    }
+}
+
