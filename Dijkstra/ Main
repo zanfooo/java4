@@ -1,0 +1,38 @@
+public class DijkstraSimulation {
+    public static void main(String[] args) {
+        // Creazione dei nodi
+        Node a = new Node("A");
+        Node b = new Node("B");
+        Node c = new Node("C");
+        Node d = new Node("D");
+        Node e = new Node("E");
+
+        // Creazione degli archi
+        a.edges.add(new Edge(b, 1));
+        a.edges.add(new Edge(c, 4));
+        b.edges.add(new Edge(c, 2));
+        b.edges.add(new Edge(d, 6));
+        c.edges.add(new Edge(d, 3));
+        d.edges.add(new Edge(e, 1));
+
+        // Creazione del grafo
+        Graph graph = new Graph();
+        graph.addNode(a);
+        graph.addNode(b);
+        graph.addNode(c);
+        graph.addNode(d);
+        graph.addNode(e);
+
+        // Applicazione dell'algoritmo di Dijkstra
+        Dijkstra dijkstra = new Dijkstra();
+        dijkstra.computeShortestPath(a);
+
+        // Stampa del percorso più breve da A a E
+        List<Node> path = dijkstra.getShortestPath(e);
+        System.out.println("Percorso più breve da A a E:");
+        for (Node node : path) {
+            System.out.print(node.name + " ");
+        }
+        System.out.println("\nDistanza totale: " + e.distance);
+    }
+}
