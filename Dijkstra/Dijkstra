@@ -1,0 +1,34 @@
+class Dijkstra {
+    public void computeShortestPath(Node source) {
+        source.distance = 0; // La distanza dal nodo sorgente a se stesso è 0
+        PriorityQueue<Node> priorityQueue = new PriorityQueue<>();
+        priorityQueue.add(source);
+
+        while (!priorityQueue.isEmpty()) {
+            Node current = priorityQueue.poll();
+
+            for (Edge edge : current.edges) {
+                Node neighbor = edge.target;
+                int newDistance = current.distance + edge.weight;
+
+                if (newDistance < neighbor.distance) {
+                    neighbor.distance = newDistance;
+                    neighbor.previous = current;
+
+                    // Aggiorna la priorità nella coda
+                    priorityQueue.add(neighbor);
+                }
+            }
+        }
+    }
+
+    public List<Node> getShortestPath(Node target) {
+        List<Node> path = new ArrayList<>();
+        for (Node node = target; node != null; node = node.previous) {
+            path.add(node);
+        }
+        Collections.reverse(path); // Inverti il percorso
+        return path;
+    }
+}
+
