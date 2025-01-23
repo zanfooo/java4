@@ -1,0 +1,41 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Persona p = new Persona("Pippo", "Pluto", 54, "Civitavecchia", "Nero", "Sestese");
+        Studente s = new Studente("Minnie", "Topolina", 45, "Civitavecchia", "Nero", "Sestese");
+
+//        System.out.println(s.getSquadraDelCuore());
+//        System.out.println(p.presentazione());
+//        System.out.println(s.presentazione());
+
+
+        // UP-CASTING----------------------------------------------------------------------------------------------------
+
+        Persona varPersona;
+        varPersona = p; // up-casting: posso assegnare un oggetto di una sottoclasse a una variabile della superclasse, cast implicito(trasformo il tipo Studente in Persona)
+
+        System.out.println(varPersona.metodoGenerico());
+
+        Persona p4 = new Studente("Andrea", "Lanzarote", 12, "Palermo", "Nero", "Maccahbi Tel aviv");
+        System.out.println(p4.metodoGenerico());
+
+
+        // DOWN-CASTING----------------------------------------------------------------------------------------------------
+
+
+        Persona p5 = new Persona("Leone", "Lion", 112, "Palau", "Maron", "juve stabia");
+        Studente s5;
+        // s5 = (Studente) p5; // down-casting (casting esplicito) , operazione nonn npossibile
+        //System.out.println(s5.metodoGenerico());
+
+        // BINDING DINAMICO -------------------------------------------------------------------------------------------------
+        //  A runtime chiama il metodo corretto
+        Persona p10 = new Studente("Paolo", "Maldini", 57, "Milano", "Rossonero", "AC Milan");
+        Persona p20 = new Docente("Nicola", "Ventola", 52, "Milano", "Blu", "FC internazionale");
+        System.out.println(p10.presentazione());
+        System.out.println(p20.presentazione());
+
+    }
+}
