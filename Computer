@@ -1,0 +1,138 @@
+public class PC {
+    protected String processore;
+    protected int ram;
+    protected int memoriaMassa;
+    protected String marca;
+    protected String modello;
+    protected String sistemaOperativo;
+
+    public PC(String processore, int ram, int memoriaMassa, String marca, String modello, String sistemaOperativo) {
+        this.processore = processore;
+        this.ram = ram;
+        this.memoriaMassa = memoriaMassa;
+        this.marca = marca;
+        this.modello = modello;
+        this.sistemaOperativo = sistemaOperativo;
+    }
+
+    @Override
+    public String toString() {
+        return "PC [Marca: " + marca + ", Modello: " + modello + ", Processore: " + processore +
+               ", RAM: " + ram + "GB, Memoria: " + memoriaMassa + "GB, SO: " + sistemaOperativo + "]";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        PC other = (PC) obj;
+        return processore.equals(other.processore) && ram == other.ram &&
+               memoriaMassa == other.memoriaMassa && marca.equals(other.marca) &&
+               modello.equals(other.modello) && sistemaOperativo.equals(other.sistemaOperativo);
+    }
+}
+
+ public class PCFisso extends PC {
+    protected String contenitore;  // Grande, Medio, Piccolo
+
+    public PCFisso(String processore, int ram, int memoriaMassa, String marca, String modello, String sistemaOperativo, String contenitore) {
+        super(processore, ram, memoriaMassa, marca, modello, sistemaOperativo);
+        this.contenitore = contenitore;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + ", Contenitore: " + contenitore;
+    }
+}
+
+
+
+public class Desktop extends PCFisso {
+    private String gpu;
+
+    public Desktop(String processore, int ram, int memoriaMassa, String marca, String modello, String sistemaOperativo, String contenitore, String gpu) {
+        super(processore, ram, memoriaMassa, marca, modello, sistemaOperativo, contenitore);
+        this.gpu = gpu;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + ", GPU: " + gpu;
+    }
+}
+
+
+public class Server extends PCFisso {
+    private int numCPU;
+    private boolean haRAID;
+
+    public Server(String processore, int ram, int memoriaMassa, String marca, String modello, String sistemaOperativo, String contenitore, int numCPU, boolean haRAID) {
+        super(processore, ram, memoriaMassa, marca, modello, sistemaOperativo, contenitore);
+        this.numCPU = numCPU;
+        this.haRAID = haRAID;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + ", CPU: " + numCPU + ", RAID: " + (haRAID ? "Sì" : "No");
+    }
+}
+
+
+
+public class Portatile extends PC {
+    private double peso;
+    private double altezza;
+    private double larghezza;
+    private double profondità;
+    private double dimVideo;
+
+    public Portatile(String processore, int ram, int memoriaMassa, String marca, String modello, String sistemaOperativo,
+                     double peso, double altezza, double larghezza, double profondità, double dimVideo) {
+        super(processore, ram, memoriaMassa, marca, modello, sistemaOperativo);
+        this.peso = peso;
+        this.altezza = altezza;
+        this.larghezza = larghezza;
+        this.profondità = profondità;
+        this.dimVideo = dimVideo;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + ", Peso: " + peso + "kg, Dimensioni: " + altezza + "x" + larghezza + "x" + profondità + " cm, Display: " + dimVideo + " pollici";
+    }
+}
+
+
+public class Test {
+    public static void main(String[] args) {
+        PC desktop = new Desktop("Intel i7", 16, 512, "Dell", "XPS 8940", "Windows 11", "Medio", "NVIDIA RTX 3060");
+        PC server = new Server("AMD EPYC", 64, 2000, "HP", "ProLiant", "Linux", "Grande", 2, true);
+        PC portatile = new Portatile("Apple M1", 8, 256, "Apple", "MacBook Air", "macOS", 1.29, 1.6, 30.4, 21.2, 13.3);
+
+        // Stampa le informazioni
+        System.out.println(desktop);
+        System.out.println(server);
+        System.out.println(portatile);
+
+        // Up-casting
+        PC pcGenerico = new Desktop("Intel i5", 8, 256, "HP", "Pavilion", "Windows 10", "Piccolo", "Intel UHD");
+
+        // Down-casting (deve essere fatto con cautela)
+        if (pcGenerico instanceof Desktop) {
+            Desktop d = (Desktop) pcGenerico;
+            System.out.println("Downcasting riuscito: " + d);
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
