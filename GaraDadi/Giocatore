@@ -1,0 +1,19 @@
+import java.util.ArrayList;
+
+public class Giocatore {
+    private String nome;
+    private double winRate;
+    private int vittorie;
+    private int nPartite;
+
+    ArrayList<Giocatore> listaGiocatori = new ArrayList<>();
+
+    public Giocatore(String nome, int vittorie) {
+        this.nome = nome;
+        this.nPartite = nPartite;
+    }
+    public void winRate(int vittorie, int nPartite){
+        this.winRate = (double) vittorie /nPartite;
+    }
+
+}
