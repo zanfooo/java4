@@ -1,0 +1,24 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        String nome1;
+        String nome2;
+        int nPartite;
+        Scanner tastiera = new Scanner(System.in);
+
+        System.out.println("Inserisci il primo giocatore: ");
+        nome1 = tastiera.nextLine();
+        System.out.println("Inserisci il secondo giocatore: ");
+        nome2 = tastiera.nextLine();
+        System.out.println("Inserisci il numero di partite: ");
+        nPartite = tastiera.nextInt();
+
+        Giocatore giocatore1 = new Giocatore(nome1, nPartite);
+        Giocatore giocatore2 = new Giocatore(nome2, nPartite);
+
+        for (int i = 0; i < nPartite; i++){
+
+        }
+    }
+}
