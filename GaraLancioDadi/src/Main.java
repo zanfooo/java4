@@ -31,7 +31,9 @@ public class Main {
 
         // Fine della gara
         System.out.println("\nRisultato finale:");
-        System.out.println("Vincitore: " + gara.getWinner());
+//        System.out.println("Vincitore: " + gara.getWinner());
+        gara.gameWin();
+
 
         scanner.close();
     }

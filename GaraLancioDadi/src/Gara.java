@@ -5,6 +5,7 @@ public class Gara {
     private int roundTotali;
     private int roundCorrente;
     private boolean garaInCorso;
+    private double winrate;
 
     public Gara(Giocatore giocatore1, Giocatore giocatore2, int roundTotali, Dado dado) {
         this.giocatore1 = giocatore1;
@@ -13,6 +14,26 @@ public class Gara {
         this.roundTotali = roundTotali;
         this.roundCorrente = 0;
         this.garaInCorso = true;
+    }
+
+    public Giocatore getGiocatore1() {
+        return giocatore1;
+    }
+
+    public Giocatore getGiocatore2() {
+        return giocatore2;
+    }
+
+    public Dado getDado() {
+        return dado;
+    }
+
+    public int getRoundTotali() {
+        return roundTotali;
+    }
+
+    public int getRoundCorrente() {
+        return roundCorrente;
     }
 
     public boolean isGaraInCorso() {
@@ -44,9 +65,11 @@ public class Gara {
             // Determiniamo il vincitore del round
             if (lancioGiocatore1 > lancioGiocatore2) {
                 System.out.println(giocatore1.getNome() + " vince questo round.");
+                System.out.println("Winrate del giocatore: " + setWinrateCorrente(giocatore1));
                 giocatore1.incrementaVittorie();
             } else if (lancioGiocatore2 > lancioGiocatore1) {
                 System.out.println(giocatore2.getNome() + " vince questo round.");
+                System.out.println("Winrate del giocatore: " + setWinrateCorrente(giocatore2));
                 giocatore2.incrementaVittorie();
             } else {
                 System.out.println("Parità in questo round.");
@@ -56,20 +79,28 @@ public class Gara {
 
             roundCorrente++;
             if (roundCorrente == roundTotali) {
-                garaInCorso = false;
-                gameWin();
+            garaInCorso = false;
             }
         }
     }
 
-    private void gameWin() {
+    public void gameWin() {
         if (giocatore1.getVittorie() > giocatore2.getVittorie()) {
             System.out.println(giocatore1.getNome() + " ha vinto la gara!");
+            System.out.println("Winrate del giocatore: " + setWinrateCorrente(giocatore1));
         } else if (giocatore2.getVittorie() > giocatore1.getVittorie()) {
             System.out.println(giocatore2.getNome() + " ha vinto la gara!");
+            System.out.println("Winrate del giocatore: " + setWinrateCorrente(giocatore2));
         } else {
-            System.out.println("La gara è finita in parità.");
+            System.out.println("La gara è finita in parità");
+            System.out.println("Winrate del giocatore: " + setWinrateCorrente(giocatore1));
+            System.out.println("Winrate del giocatore: " + setWinrateCorrente(giocatore2));
         }
+    }
+
+    public double setWinrateCorrente(Giocatore g) {
+        winrate = (double) g.getVittorie() / roundCorrente;
+        return winrate * 100;
     }
 
     public void resetGame() {

@@ -1,6 +1,7 @@
 public class Giocatore {
     private String nome;
     private int vittorie;
+//    private double winrate;
 
 
     public Giocatore(String nome) {
@@ -23,4 +24,6 @@ public class Giocatore {
     public void resetVittorie() {
         this.vittorie = 0;
     }
+
+
 }
