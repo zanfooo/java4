@@ -1,18 +1,24 @@
-import java.util.Random;
+public class Dado implements Comparable<Dado> {
+    private int nFacce;
+    private Random random;
+    private int valoreAttuale;
 
-public class Dado {
-    private int nFacce = 6;
-    private int valFaccia;
-    Random valLancio = new Random();
+    public Dado() {
+        this.nFacce = 6;  // Il dado ha 6 facce per default
+        this.random = new Random();
+    }
 
-    public Dado(int nFacce, int valFaccia, Random valLancio) {
-        this.nFacce = nFacce;
-        this.valFaccia = valLancio.nextInt(0,7);
-//        this.valLancio = valLancio;
+    public int lancia() {
+        valoreAttuale = random.nextInt(nFacce) + 1;  // Restituisce un numero casuale da 1 a 6
+        return valoreAttuale;
+    }
+
+    public int getValoreAttuale() {
+        return valoreAttuale;
     }
 
     @Override
-    public String toString() {
-        return "Dado: " + "nFacce= " + nFacce + ", valFaccia= " + valFaccia + ", valLancio= " + valLancio;
+    public int compareTo(Dado altroDado) {
+        return Integer.compare(this.valoreAttuale, altroDado.valoreAttuale);
     }
 }
