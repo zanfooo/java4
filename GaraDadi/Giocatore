@@ -1,19 +1,31 @@
-import java.util.ArrayList;
-
-public class Giocatore {
+public class Giocatore implements Comparable<Giocatore> {
     private String nome;
-    private double winRate;
     private int vittorie;
-    private int nPartite;
 
-    ArrayList<Giocatore> listaGiocatori = new ArrayList<>();
-
-    public Giocatore(String nome, int vittorie) {
+    public Giocatore(String nome) {
         this.nome = nome;
-        this.nPartite = nPartite;
-    }
-    public void winRate(int vittorie, int nPartite){
-        this.winRate = (double) vittorie /nPartite;
+        this.vittorie = 0;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
+    public int getVittorie() {
+        return vittorie;
+    }
+
+    public void incrementaVittorie() {
+        vittorie++;
+    }
+
+    public void resetVittorie() {
+        vittorie = 0;
+    }
+
+    @Override
+    public int compareTo(Giocatore altroGiocatore) {
+        // Confrontiamo in base al numero di vittorie
+        return Integer.compare(this.vittorie, altroGiocatore.vittorie);
+    }
 }
