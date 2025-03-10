@@ -1,0 +1,35 @@
+import java.util.*;
+
+class NegozioElettronica {
+    private List<ProdottoElettronico> inventario = new ArrayList<>();
+
+    public void aggiungiProdotto(ProdottoElettronico prodotto) throws ProdottoEsistenteException {
+        if (inventario.stream().anyMatch(p -> p.getCodice().equals(prodotto.getCodice()))) {
+            throw new ProdottoEsistenteException("Errore: Il codice prodotto " + prodotto.getCodice() + " esiste già.");
+        }
+        inventario.add(prodotto);
+    }
+
+    public void rimuoviProdotto(String codice) throws ProdottoNonTrovatoException {
+        boolean rimosso = inventario.removeIf(p -> p.getCodice().equals(codice));
+        if (!rimosso) {
+            throw new ProdottoNonTrovatoException("Errore: Prodotto con codice " + codice + " non trovato.");
+        }
+    }
+
+    public ProdottoElettronico cercaProdotto(String codice) throws ProdottoNonTrovatoException {
+        return inventario.stream()
+                .filter(p -> p.getCodice().equals(codice))
+                .findFirst()
+                .orElseThrow(() -> new ProdottoNonTrovatoException("Errore: Prodotto con codice " + codice + " non trovato."));
+    }
+
+    public void modificaPrezzo(String codice, double nuovoPrezzo) throws ProdottoNonTrovatoException {
+        ProdottoElettronico prodotto = cercaProdotto(codice);
+        prodotto.setPrezzo(nuovoPrezzo);
+    }
+
+    public List<ProdottoElettronico> getInventario() {
+        return Collections.unmodifiableList(inventario); // Impedisce modifiche dirette all'inventario
+    }
+}
